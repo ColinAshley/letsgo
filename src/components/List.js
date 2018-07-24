@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Place from './Place';
 
-class Filter extends Component {
+class List extends Component {
   state = {
     locations: '',
     query: '',
@@ -13,7 +13,7 @@ class Filter extends Component {
     this.filterLocations = this.filterLocations.bind(this);
   }
 
-  // Filter the location list
+  // Filter Locations based on user input
   filterLocations(event) {
     this.props.closeInfoWindow();
     const { value } = event.target;
@@ -69,4 +69,4 @@ class Filter extends Component {
   }
 }
 
-export default Filter;
+export default List;
