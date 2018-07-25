@@ -11,10 +11,10 @@
   height: 50px;
   padding: 5px;
   color: white;
-    width:100%;
-    position:fixed;
-    top:0px;
-    z-index: 100;
+  width: 100%;
+  position :fixed;
+  top: 0;
+  z-index: 1;
 }
 
 .App-title {
@@ -24,4 +24,10 @@
 
 .App-intro {
   font-size: large;
+}
+
+@media screen and (max-width: 361px) {
+  .App-header {
+    position: top;
+  }
 }

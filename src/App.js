@@ -1,9 +1,18 @@
+/* Name: App.js
+** Date: 25th July 2018
+** Project: FEND - Neighborhood Map
+** Author: Colin Ashley
+*/
+
+// import React
 import React, { Component } from 'react';
+// import required components
 import './App.css';
 import List from './components/List';
 
 class App extends Component {
   state = {
+    // read in list of places
     places: require('./places.json'),
     map: '',
     infoWindow: ''
@@ -31,6 +40,7 @@ class App extends Component {
     let self = this;
     let mapView = document.getElementById('map');
     mapView.style.height = window.innerHeight + 'px';
+    // create the map
     let map = new window.google.maps.Map(mapView, {
       mapTypeControlOptions: {
               style: window.google.maps.MapTypeControlStyle.DEFAULT,
@@ -39,28 +49,33 @@ class App extends Component {
       center: { lat: 51.884783, lng: -1.75664},
       zoom: 16
     });
+    // create the infoWindow
     let InfoWindow = new window.google.maps.InfoWindow({});
     let places = [];
-
+    // close-click event listener
     window.google.maps.event.addListener(InfoWindow, 'closeclick', () => {
       self.closeInfoWindow();
     });
 
+    // update the state
     this.setState({
       map: map,
       infoWindow: InfoWindow
     });
 
+    // keep map centered
     window.google.maps.event.addDomListener(window, 'resize', () => {
       let center = map.getCenter();
       window.google.maps.event.trigger(map, 'resize');
       self.state.map.setCenter(center);
     });
 
+    // close the infoWindow if the user clicks the map too
     window.google.maps.event.addListener(map, 'click', () => {
       self.closeInfoWindow();
     });
 
+    // create the location markers
     this.state.places.forEach((location) => {
       let locName = location.name;
       let marker = new window.google.maps.Marker({
@@ -79,23 +94,25 @@ class App extends Component {
           },
         title: location.name
       });
-
+      // create eventListener for marker clicks
       marker.addListener('click', () => {
         self.openInfoWindow(marker);
       });
 
+      // setup marker
       location.locName = locName;
       location.marker = marker;
       location.display = true;
       places.push(location);
     });
 
+    // update the state
     this.setState({
       places: places
     });
   }
 
-  // Open an infoWindow for marker
+  // Open nfoWindow for marker
   openInfoWindow(marker) {
     // close current window first
     this.closeInfoWindow();
@@ -109,6 +126,7 @@ class App extends Component {
     this.state.infoWindow.close();
   }
 
+  // get more data from 3rd-Party via API
   getFourSqData(marker) {
     let self = this;
     // My FourSquare Client Details
@@ -130,6 +148,7 @@ class App extends Component {
           self.state.infoWindow.setContent('Server-side problem encountered');
           return;
         }
+        // read response and write infoWindow HTML
         response.json().then((data) => {
           let location_data = data.response.venues[0];
           let place = `<h4>${location_data.name}</h4>`;
