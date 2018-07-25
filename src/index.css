@@ -21,13 +21,13 @@ body {
   top: 10%;
   z-index: 1;
   background-color: #2e2e2e;
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 .search-input {
   width: 150px;
   padding: 5px;
-  font-size: 0.7em;
+  font-size: 1em;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 300;
 }
@@ -36,6 +36,7 @@ body {
   padding: 0;
   margin: 5px;
   overflow: auto;
+  z-index:  10;
 }
 
 .place {
@@ -46,7 +47,22 @@ body {
   -webkit-transition: background-color 500ms;
   -moz-transition: background-color 500ms;
   transition: background-color 500ms;
-  border-radius: px;
+  border-radius: 3px;
+}
+
+h4 {
+  color:  white;
+  background-color: darkblue;
+  margin-bottom: 0;
+  padding-bottom:  0;
+}
+
+.addressList {
+  list-style-type: none;
+}
+
+.category {
+  color: green;
 }
 
 .place:hover {

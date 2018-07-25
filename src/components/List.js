@@ -19,10 +19,12 @@ class List extends Component {
     const { value } = event.target;
     let locations = [];
     this.props.places.forEach((location) => {
-      if (location.nameType.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+      if (location.locName.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
         location.marker.setVisible(true);
         locations.push(location);
-      } else {
+      }
+      else
+      {
         location.marker.setVisible(false);
       }
     });
@@ -57,12 +59,12 @@ class List extends Component {
           role="search"
           aria-labelledby="filter"
           type="text"
-          placeholder="Search locations..."
+          placeholder="Search local attractions"
           value={this.state.query}
           onChange={this.filterLocations}
         />
         <ul className="location-list">
-          {this.state.suggestions && locationlist}
+          {locationlist}
         </ul>
       </div>
     );

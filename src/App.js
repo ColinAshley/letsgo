@@ -21,7 +21,7 @@ class App extends Component {
     // initMap is the main window
     window.initMap = this.initMap;
     // Load map (aysnc)
-    loadMapJS(
+    setupMap(
       "https://maps.googleapis.com/maps/api/js?key=AIzaSyAiqg9YTYOm1Z3CVDUCHWmDEjRqIlBocj8&v=3&callback=initMap"
     );
   }
@@ -32,8 +32,12 @@ class App extends Component {
     let mapView = document.getElementById('map');
     mapView.style.height = window.innerHeight + 'px';
     let map = new window.google.maps.Map(mapView, {
-      center: { lat: 51.883955, lng: -1.758059 },
-      zoom: 15
+      mapTypeControlOptions: {
+              style: window.google.maps.MapTypeControlStyle.DEFAULT,
+              position: window.google.maps.ControlPosition.BOTTOM_CENTER
+          },
+      center: { lat: 51.884783, lng: -1.75664},
+      zoom: 16
     });
     let InfoWindow = new window.google.maps.InfoWindow({});
     let places = [];
@@ -58,21 +62,29 @@ class App extends Component {
     });
 
     this.state.places.forEach((location) => {
-      let nameType = location.name;
+      let locName = location.name;
       let marker = new window.google.maps.Marker({
         position: new window.google.maps.LatLng(
           location.lat,
-          location.lng
+          location.lng,
         ),
         animation: window.google.maps.Animation.DROP,
-        map: map
+        map: map,
+        icon: {
+          path: window.google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+          strokeWeight: 1,
+          scale: 6.0,
+          fillColor: 'Red',
+          fillOpacity: 0.7
+          },
+        title: location.name
       });
 
       marker.addListener('click', () => {
         self.openInfoWindow(marker);
       });
 
-      location.nameType = nameType;
+      location.locName = locName;
       location.marker = marker;
       location.display = true;
       places.push(location);
@@ -85,10 +97,10 @@ class App extends Component {
 
   // Open an infoWindow for marker
   openInfoWindow(marker) {
-    // close currect window first
+    // close current window first
     this.closeInfoWindow();
+    this.state.infoWindow.setContent('Please Wait');
     this.state.infoWindow.open(this.state.map, marker);
-    //this.state.map.setCenter(marker.getPosition());
     this.getFourSqData(marker);
   }
 
@@ -99,7 +111,6 @@ class App extends Component {
 
   getFourSqData(marker) {
     let self = this;
-
     // My FourSquare Client Details
     let FSclientId = "U0A0LA1YGIBAK5OTFXCBMD2PUZ13BNWJSRK5E2YUSPYC30OY";
     let FSclientSecret = "ZC3N35W00CVCA3ZNCYSPYL2DFCUVDBH1NC3W0O0PBHBVYISN";
@@ -112,47 +123,47 @@ class App extends Component {
       FSclientSecret + '&v=' + FSVersion + '&ll=' + marker.getPosition().lat() + ',' +
       marker.getPosition().lng() + '&limit=1';
 
+    // Get the data
     fetch(url)
       .then((response) => {
         if (response.status !== 200) {
           self.state.infoWindow.setContent('Server-side problem encountered');
           return;
         }
-        //
         response.json().then((data) => {
           let location_data = data.response.venues[0];
           let place = `<h4>${location_data.name}</h4>`;
-          let addln1 = `<p>${location_data.location.formattedAddress[0]}</p>`;
-          let addln2 = `<p>${location_data.location.formattedAddress[1]}</p>`;
+          let category = `<p class=category>(${location_data.categories[0].name})</p>`;
+          let addln1 = `<ul class="addressList"><li>${location_data.location.formattedAddress[0]}</li>`;
+          let addln2 = `<li>${location_data.location.formattedAddress[1]}</li>`;
+          let postcode = `<li>${location_data.location.postalCode}</li></ul></p>`;
+          // Unfortunately Photos are not available via FourSquare API search
           let more =
             '<a href="https://foursquare.com/v/' + location_data.id +
             '" target="_blank"><b>View on FourSquare</b></a>';
-          self.state.infoWindow.setContent( place + addln1 + addln2 + more );
+          self.state.infoWindow.setContent( place + category + addln1 + addln2 + postcode + more );
+          console.log(location_data);
         });
       })
       .catch((err) => {
-        self.state.infoWindow.setContent('Something went wrong! Try again plz :)');
+        self.state.infoWindow.setContent('Error connecting to FourSquare');
       });
   }
 
-  /**
-   * Render for react
-   */
+  // Render the screen
   render() {
     return (
       <div>
         <header className="App-header">
-          <div>
-            <h1 className="App-title">Neighborhood Map</h1>
-          </div>
+          <h1 className="App-title">Cotswold Visitor Guide</h1>
         </header>
         <List
-          key = "15"
+          key = "10"
           places = {this.state.places}
           openInfoWindow = {this.openInfoWindow}
           closeInfoWindow = {this.closeInfoWindow}
-         />
-        <div id="map" />
+        />
+      <div id="map" />
       </div>
     );
   }
@@ -160,11 +171,11 @@ class App extends Component {
 
 export default App;
 
-// Load the google Map
-function loadMapJS(src) {
+// Create an HTML <script> element to load the Map
+function setupMap(mapURL) {
   let ref = window.document.getElementsByTagName('script')[0];
   let script = window.document.createElement('script');
-  script.src = src;
+  script.src = mapURL;
   script.async = true;
   script.onerror = () => {
     document.write('Failed to load Google Map');

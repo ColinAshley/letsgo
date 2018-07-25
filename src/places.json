@@ -1,27 +1,27 @@
 [
   {
-    "name": "Cotswold Pefumery",
-    "lat": 51.8840,
-    "lng": -1.7581
-  },
-  {
-    "name": "Cotswold Motor Museum",
-    "lat": 51.8847,
-    "lng": -1.7586
-  },
-  {
-    "name": "The Model Village",
-    "lat": 51.88328,
-    "lng": -1.755592
-  },
-  {
     "name": "Birdland",
     "lat": 51.88165,
     "lng": -1.754175
   },
   {
-    "name": "Kingsbridge Inn",
-    "lat": 51.88389,
-    "lng": -1.757373
+    "name": "Cotswold Motoring Museum",
+    "lat": 51.8846633,
+    "lng": -1.7588097
+  },
+  {
+    "name": "Cotswold Pefumery",
+    "lat": 51.8840,
+    "lng": -1.7581
+  },
+  {
+    "name": "Hartwells Cycle Hire",
+    "lat": 51.884064,
+    "lng": -1.757219
+  },
+  {
+    "name": "The Model Village",
+    "lat": 51.88317,
+    "lng": -1.755567
   }
 ]

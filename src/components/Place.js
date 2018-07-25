@@ -13,7 +13,7 @@ class Place extends React.Component {
         )}
         onClick={this.props.openInfoWindow.bind(this, this.props.data.marker)}
       >
-        {this.props.data.nameType}
+        {this.props.data.locName}
       </li>
     );
   }
