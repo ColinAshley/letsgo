@@ -4,6 +4,8 @@
 ** Author: Colin Ashley
 */
 
+
+
 // import React
 import React, { Component } from 'react';
 // import required components
@@ -15,7 +17,8 @@ class App extends Component {
     // read in list of places
     places: require('./places.json'),
     map: '',
-    infoWindow: ''
+    infoWindow: '',
+    lastMarker: ''
   };
 
   constructor(props) {
@@ -46,8 +49,8 @@ class App extends Component {
               style: window.google.maps.MapTypeControlStyle.DEFAULT,
               position: window.google.maps.ControlPosition.BOTTOM_CENTER
           },
-      center: { lat: 51.884783, lng: -1.75664},
-      zoom: 16
+      center: { lat: 51.886225, lng: -1.7582386 },
+      zoom: 15
     });
     // create the infoWindow
     let InfoWindow = new window.google.maps.InfoWindow({});
@@ -116,13 +119,26 @@ class App extends Component {
   openInfoWindow(marker) {
     // close current window first
     this.closeInfoWindow();
+        this.setState({
+      lastMarker: marker
+    });
+    // Animate the selected marker
+    marker.setAnimation(window.google.maps.Animation.BOUNCE);
     this.state.infoWindow.setContent('Please Wait');
     this.state.infoWindow.open(this.state.map, marker);
+    // Use 3rd-Party API for place data
     this.getFourSqData(marker);
   }
 
   // Closes infoWindow
   closeInfoWindow() {
+    if (this.state.lastMarker) {
+      this.state.lastMarker.setAnimation(null);
+    }
+    this.setState({
+      lastMarker: ''
+    });
+
     this.state.infoWindow.close();
   }
 
@@ -160,12 +176,13 @@ class App extends Component {
           let more =
             '<a href="https://foursquare.com/v/' + location_data.id +
             '" target="_blank"><b>View on FourSquare</b></a>';
+          // Write to the infoWindow
           self.state.infoWindow.setContent( place + category + addln1 + addln2 + postcode + more );
-          console.log(location_data);
+          //console.log(location_data);
         });
       })
       .catch((err) => {
-        self.state.infoWindow.setContent('Error connecting to FourSquare');
+        self.state.infoWindow.setContent('<h4>Error connecting to FourSquare</h4>Check Network Connection');
       });
   }
 
@@ -173,8 +190,8 @@ class App extends Component {
   render() {
     return (
       <div>
-        <header className="App-header">
-          <h1 className="App-title">Cotswold Visitor Guide</h1>
+        <header className="app-header">
+          <h1 className="app-title">Cotswold Visitor Guide</h1>
         </header>
         <List
           key = "10"

@@ -1,13 +1,13 @@
 [
   {
     "name": "Birdland",
-    "lat": 51.88165,
-    "lng": -1.754175
+    "lat": 51.880595,
+    "lng": -1.754331
   },
   {
     "name": "Cotswold Motoring Museum",
-    "lat": 51.8846633,
-    "lng": -1.7588097
+    "lat": 51.884754,
+    "lng": -1.759089
   },
   {
     "name": "Cotswold Pefumery",
@@ -23,5 +23,10 @@
     "name": "The Model Village",
     "lat": 51.88317,
     "lng": -1.755567
+  },
+  {
+    "name": "Craigmoor Cottage",
+    "lat": 51.8826022,
+    "lng": -1.7567212
   }
 ]

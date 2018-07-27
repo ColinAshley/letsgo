@@ -1,7 +1,16 @@
+/* Name: List.js
+** Desc: Place List functionality
+** Date: 26th July 2018
+** Author: Colin Ashley
+*/
+
+// import React
 import React, { Component } from 'react';
+// import components
 import Place from './Place';
 
 class List extends Component {
+  // initial state
   state = {
     locations: '',
     query: '',
@@ -10,6 +19,7 @@ class List extends Component {
 
   constructor(props) {
     super(props);
+    // bind original method context
     this.filterLocations = this.filterLocations.bind(this);
   }
 
@@ -29,6 +39,7 @@ class List extends Component {
       }
     });
 
+    // update the state
     this.setState({
       locations: locations,
       query: value
@@ -41,6 +52,7 @@ class List extends Component {
     });
   }
 
+  // Display the Place list.
   render() {
     let locationlist = this.state.locations.map((listItem, index) => {
       return (

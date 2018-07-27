@@ -1,33 +1,32 @@
-.App {
+/* Name: App.css
+** Desc: Initial App Style
+** Date: 26th July 2018
+** Author: Colin Ashley
+*/
+
+.app {
   text-align: center;
 }
 
-.App-logo {
-  height: 80px;
-}
-
-.App-header {
+.app-header {
   background-color: #666;
+  color: white;
   height: 50px;
   padding: 5px;
-  color: white;
-  width: 100%;
   position :fixed;
   top: 0;
-  z-index: 1;
+  width: 100%;
+  z-index:  1;
 }
 
-.App-title {
+.app-title {
   font-size: 1.0em;
   text-align: center;
 }
 
-.App-intro {
-  font-size: large;
-}
-
-@media screen and (max-width: 361px) {
-  .App-header {
+/* media query for smaller screens */
+@media screen and (max-width: 360px) {
+  .app-header {
     position: top;
   }
 }

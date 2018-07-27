@@ -1,3 +1,9 @@
+/* Name: index.css
+** Desc: Element styling
+** Date: 26th July 2018
+** Authopr: Colin Ashley
+*/
+
 body {
   margin: 0;
   padding: 0;
@@ -11,6 +17,7 @@ body {
   left: 5px;
 }
 
+/* Search input box and list */
 .search-area {
   font-size: 0.7em;
   border-radius: 5px;
@@ -24,6 +31,7 @@ body {
   opacity: 0.8;
 }
 
+/* Search input box */
 .search-input {
   width: 150px;
   padding: 5px;
@@ -32,6 +40,7 @@ body {
   font-weight: 300;
 }
 
+/* Place list */
 .location-list {
   padding: 0;
   margin: 5px;
@@ -44,12 +53,17 @@ body {
   font-size: 1em;
   color: white;
   cursor: pointer;
-  -webkit-transition: background-color 500ms;
-  -moz-transition: background-color 500ms;
   transition: background-color 500ms;
   border-radius: 3px;
 }
 
+/* just a little UX */
+.place:hover {
+  color: black;
+  background-color: white;
+}
+
+/* infoWindow */
 h4 {
   color:  white;
   background-color: darkblue;
@@ -63,42 +77,4 @@ h4 {
 
 .category {
   color: green;
-}
-
-.place:hover {
-  color: black;
-  background-color: white;
-}
-
-.location-item {
-  padding: 10px;
-  margin: 0;
-  background-color: #fff;
-  list-style-type: none;
-  text-align: center;
-  border: solid green 1px;
-}
-
-.location-item:hover {
-  background-color: #000;
-  color: blue;
-}
-
-.box {
-  cursor: pointer;
-  padding: 5px;
-}
-
-.box:hover {
-  background-color: #269abc;
-  color: white;
-}
-
-.button {
-  text-align: center;
-  padding: 5px;
-  background-color: white;
-  border: 1px darkgrey solid;
-  cursor: pointer;
-  width: 334px;
 }
