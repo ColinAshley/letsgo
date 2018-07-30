@@ -65,11 +65,11 @@ class List extends Component {
     }, this);
 
     return (
-      <div className="search-area">
+      <div className="search-area" id="search-box">
         <input
           className="search-input"
           role="search"
-          aria-labelledby="filter"
+          aria-labelledby="search-box"
           type="text"
           placeholder="Search local attractions"
           value={this.state.query}

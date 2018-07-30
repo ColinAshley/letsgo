@@ -115,7 +115,7 @@ class App extends Component {
     });
   }
 
-  // Open nfoWindow for marker
+  // Open infoWindow for marker
   openInfoWindow(marker) {
     // close current window first
     this.closeInfoWindow();
@@ -177,8 +177,7 @@ class App extends Component {
             '<a href="https://foursquare.com/v/' + location_data.id +
             '" target="_blank"><b>View on FourSquare</b></a>';
           // Write to the infoWindow
-          self.state.infoWindow.setContent( place + category + addln1 + addln2 + postcode + more );
-          //console.log(location_data);
+          self.state.infoWindow.setContent( '<div tabIndex="0">' + place + category + addln1 + addln2 + postcode + more + '</div>');
         });
       })
       .catch((err) => {
