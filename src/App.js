@@ -34,7 +34,7 @@ class App extends Component {
     window.initMap = this.initMap;
     // Load map (aysnc)
     setupMap(
-      "https://maps.googleapis.com/maps/api/js?key=AIzaSyAiqg9YTYOm1Z3CVDUCHWmDEjRqIlBocj8&v=3&callback=initMap"
+      "https://maps.googleapis.com/maps/api/js?key=<GOOGLE MAPS API KEY>&v=3&callback=initMap"
     );
   }
 
